@@ -31,8 +31,17 @@ export default function LoginPage() {
 
       router.replace("/catalogue");
       router.refresh();
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Unable to login.");
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        try {
+          const parsed = JSON.parse(err.message) as { detail?: string };
+          setError(parsed.detail || err.message || "Unable to login.");
+        } catch {
+          setError(err.message || "Unable to login.");
+        }
+      } else {
+        setError("Unable to login.");
+      }
     } finally {
       setIsLoading(false);
     }

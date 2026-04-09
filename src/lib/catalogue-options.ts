@@ -1,0 +1,10 @@
+export const GARMENT_TYPE_OPTIONS = ["Dress", "Bottoms", "Top", "Outerwear", "Sweater", "Jacket", "Shacket", "Co-ord set", "Jumpsuit"] as const;
+export const GENDER_OPTIONS = ["Female", "Male"] as const;
+export const AGE_OPTIONS = ["Adult", "Child"] as const;
+export const COLOR_OPTIONS = ["Red", "Blue", "Green", "Yellow", "Purple", "Pink", "Orange", "Black", "Brown", "Grey", "Beige", "White", "Multi-colour"] as const;
+export const NECK_OPTIONS = ["V-shape", "Round", "Collar", "Halter", "Cowl", "Square", "Plunging", "Boat", "Asymmetric", "Off-shoulders", "Turtle", "Scoop", "Notch", "Sweetheart", "Resort collar", "High neck", "Bow tie", "Waterfall neck", "NA"] as const;
+export const DESIGN_OPTIONS = ["Solid", "Textured", "Printed", "Embroidered"] as const;
+export const CATEGORY_OPTIONS = ["Development", "Production", "Shopped Sample"] as const;
+export const FABRIC_TYPE_OPTIONS = ["Knit", "Woven", "Knit+Woven"] as const;
+export const PRINT_CATEGORY_OPTIONS = ["Checks", "Stripes", "Polka dots", "Paisley", "Ikkat", "Big floral", "Ditsy", "Abstract", "Placement", "Border", "Animal", "Houndstooth", "Patchwork", "Graphic", "Ethnic", "Character", "Distorted", "Marble", "Tie dye", "Geometric", "Block print", "Ombre", "Kids", "NA"] as const;
+export const EMBROIDERY_CATEGORY_OPTIONS = ["All over", "Placement", "Border", "NA"] as const;

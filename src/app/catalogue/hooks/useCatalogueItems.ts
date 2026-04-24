@@ -22,7 +22,7 @@ function buildCatalogueParams({
 }: Omit<UseCatalogueItemsArgs, "router">): URLSearchParams {
   const params = new URLSearchParams();
   params.set("page", String(page));
-  params.set("page_size", "9");
+  params.set("page_size", "12");
   params.set("sort_by", sortBy);
   params.set("sort_dir", sortDir);
 

@@ -1,10 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { LogOut } from "lucide-react";
+import { Filter, LogOut } from "lucide-react";
 import { useRouter } from "next/navigation";
 import type { CatalogueResponse } from "@/types/catalogue";
 import { CatalogueFilters } from "@/app/catalogue/components/CatalogueFilters";
+import { MobileFiltersDrawer } from "@/app/catalogue/components/MobileFiltersDrawer";
 import { CatalogueGridSection } from "@/app/catalogue/components/CatalogueGridSection";
 import { DetailDrawer } from "@/app/catalogue/components/DetailDrawer";
 import { DEFAULT_FILTERS } from "@/app/catalogue/constants";
@@ -18,6 +19,7 @@ export default function CataloguePage() {
   const [sortBy, setSortBy] = useState<SortBy>("updated_at");
   const [sortDir, setSortDir] = useState<SortDir>("desc");
   const [selectedItem, setSelectedItem] = useState<CatalogueResponse | null>(null);
+  const [filtersOpen, setFiltersOpen] = useState(false);
   const { items, isLoading, error, resolvedPage } = useCatalogueItems({
     filters,
     page,
@@ -63,7 +65,21 @@ export default function CataloguePage() {
           </button>
         </div>
 
-        <CatalogueFilters filters={filters} onSetFilter={setFilter} onClearAll={clearAll} />
+        <div className="hidden md:block">
+          <CatalogueFilters filters={filters} onSetFilter={setFilter} onClearAll={clearAll} />
+        </div>
+
+        <div className="md:hidden">
+          <button
+            type="button"
+            onClick={() => setFiltersOpen(true)}
+            className="inline-flex w-full items-center justify-center gap-2 rounded-md border bg-background px-4 py-3 text-sm font-medium shadow-sm"
+          >
+            <Filter className="h-4 w-4" />
+            Filters
+          </button>
+        </div>
+
         <CatalogueGridSection
           isLoading={isLoading}
           error={error}
@@ -71,11 +87,25 @@ export default function CataloguePage() {
           rows={rows}
           canPrev={canPrev}
           canNext={canNext}
-          onOpenItem={setSelectedItem}
+          onOpenItem={(item) => {
+            setFiltersOpen(false);
+            setSelectedItem(item);
+          }}
           onPrevPage={() => setPage((p) => Math.max(1, p - 1))}
           onNextPage={() => setPage((p) => p + 1)}
         />
       </div>
+      {filtersOpen ? (
+        <MobileFiltersDrawer onClose={() => setFiltersOpen(false)}>
+          <CatalogueFilters
+            variant="drawer"
+            idPrefix="mobile-"
+            filters={filters}
+            onSetFilter={setFilter}
+            onClearAll={clearAll}
+          />
+        </MobileFiltersDrawer>
+      ) : null}
       {selectedItem ? <DetailDrawer item={selectedItem} onClose={() => setSelectedItem(null)} /> : null}
     </main>
   );
